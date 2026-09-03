@@ -3,7 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShieldAlert, HeartPulse, Stethoscope, Sparkles, BookOpen, User, Menu, X } from 'lucide-react';
+import {
+  Search,
+  ShoppingCart,
+  Star,
+  ShieldAlert,
+  Menu,
+  X,
+} from 'lucide-react';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -11,7 +18,6 @@ export const Navbar = () => {
   const [user, setUser] = useState<{ fullName: string; role: string } | null>(null);
 
   useEffect(() => {
-    // Check local storage for demo user
     const saved = localStorage.getItem('pets_care_user');
     if (saved) {
       try {
@@ -20,149 +26,150 @@ export const Navbar = () => {
         setUser(null);
       }
     } else {
-      // Default demo user
       setUser({ fullName: 'Aditya Sharma', role: 'OWNER' });
     }
   }, []);
 
+  const logoSvg = 'https://polo-pecan-73837341.figma.site/_assets/v11/0ae29d6d9628bede667f90d57bebe81b8f1ec2bf.svg';
+  const avatarUrl = 'https://polo-pecan-73837341.figma.site/_assets/v11/e62173d41f91350a59628e8a9a55ae078a886fb9.png?w=128';
+
   const navLinks = [
-    { href: '/dashboard', label: 'Dashboard', icon: HeartPulse },
-    { href: '/vets', label: 'Find Vets', icon: Stethoscope },
-    { href: '/assistant', label: 'AI Vet Care', icon: Sparkles },
-    { href: '/passport/pass-bruno-gold-2026', label: 'Passport QR', icon: BookOpen },
-    { href: '/emergency', label: '1-Tap SOS', icon: ShieldAlert, isEmergency: true },
+    { href: '/', label: 'Home' },
+    { href: '/dashboard', label: 'Dashboard' },
+    { href: '/vets', label: 'Find Vets' },
+    { href: '/assistant', label: 'AI Vet Care' },
+    { href: '/passport/pass-bruno-gold-2026', label: 'Passport QR' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 glass-panel border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* LOGO */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-              <span className="text-xl">🐾</span>
-            </div>
-            <div>
-              <span className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-1">
-                pets<span className="text-emerald-600">.care</span>
-              </span>
-              <span className="block text-[10px] font-semibold text-emerald-700 tracking-wider uppercase -mt-1">
-                Health Operating System
-              </span>
-            </div>
+    <header className="sticky top-0 z-50 w-full py-3.5 bg-[#EFFDF0]/90 backdrop-blur-md border-b border-emerald-200/60 transition-all">
+      <div className="w-[92%] sm:w-[85%] md:w-[80%] mx-auto flex items-center justify-between">
+        {/* LEFT: LOGO */}
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center group">
+            <img
+              src={logoSvg}
+              alt="CozyPaws pets.care"
+              className="w-[130px] h-[33px] lg:w-[190px] lg:h-[48px] object-contain transition-transform group-hover:scale-[1.02]"
+            />
           </Link>
-
-          {/* DESKTOP NAV LINKS */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
-
-              if (item.isEmergency) {
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="ml-2 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-sm hover:shadow-red-500/30 transition-all animate-pulse-sos"
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              }
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-emerald-50 text-emerald-800 font-semibold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* RIGHT ACTION: USER PROFILE / LOGIN */}
-          <div className="hidden md:flex items-center gap-3">
-            {user ? (
-              <Link
-                href="/login"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-all border border-slate-200"
-              >
-                <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold">
-                  {user.fullName.charAt(0)}
-                </div>
-                <span>{user.fullName}</span>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-full font-bold">
-                  {user.role}
-                </span>
-              </Link>
-            ) : (
-              <Link
-                href="/login"
-                className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold shadow-sm transition-all"
-              >
-                Sign In
-              </Link>
-            )}
-          </div>
-
-          {/* MOBILE MENU TOGGLE */}
-          <div className="md:hidden flex items-center gap-2">
-            <Link
-              href="/emergency"
-              className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-red-600 text-white font-bold text-xs"
-            >
-              <ShieldAlert className="w-3.5 h-3.5" />
-              <span>SOS</span>
-            </Link>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:bg-slate-100"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+          <span className="hidden xl:inline-flex text-[10px] font-black uppercase tracking-wider bg-emerald-100/80 text-[#1a3d1a] border border-emerald-200 px-2 py-0.5 rounded-md">
+            Operating System
+          </span>
         </div>
-      </div>
 
-      {/* MOBILE DROPDOWN */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white/95 px-4 pt-3 pb-5 space-y-1">
+        {/* CENTER NAV LINKS */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium">
           {navLinks.map((item) => {
-            const Icon = item.icon;
+            const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium ${
-                  item.isEmergency
-                    ? 'text-red-600 font-bold bg-red-50'
-                    : 'text-slate-700 hover:bg-slate-50'
+                className={`transition-colors py-1 ${
+                  isActive
+                    ? 'text-[#1a3d1a] font-bold border-b-2 border-[#1a3d1a]'
+                    : 'text-gray-600 hover:text-[#1a3d1a]'
                 }`}
               >
-                <Icon className="w-4 h-4" />
-                <span>{item.label}</span>
+                {item.label}
               </Link>
             );
           })}
-          <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-xs text-slate-500">Logged in as {user?.fullName || 'Guest'}</span>
+
+          {/* 1-Tap SOS Button */}
+          <Link
+            href="/emergency"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-sm hover:shadow-red-500/20 transition-all animate-pulse-sos"
+          >
+            <ShieldAlert className="w-3.5 h-3.5" />
+            <span>1-Tap SOS</span>
+          </Link>
+        </nav>
+
+        {/* RIGHT ACTIONS */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Search button */}
+          <Link
+            href="/vets"
+            aria-label="Search"
+            className="hidden sm:flex w-9 h-9 lg:w-10 lg:h-10 rounded-full border border-gray-300/80 bg-white/70 hover:bg-white items-center justify-center text-gray-700 hover:text-gray-900 transition-all hover:scale-105"
+          >
+            <Search className="w-4 h-4" />
+          </Link>
+
+          {/* Favorites button */}
+          <Link
+            href="/dashboard"
+            aria-label="Favorites"
+            className="relative w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-[#E86A10] hover:bg-[#d45e0d] flex items-center justify-center text-white transition-all hover:scale-105 shadow-sm"
+          >
+            <Star className="w-4 h-4 fill-white" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-[#E86A10] border-2 border-[#EFFDF0] text-white text-[9px] sm:text-[10px] font-bold rounded-full flex items-center justify-center">
+              4
+            </span>
+          </Link>
+
+          {/* Cart button */}
+          <Link
+            href="/dashboard"
+            aria-label="Cart"
+            className="relative w-9 h-9 lg:w-10 lg:h-10 rounded-full border border-gray-300/80 bg-white/70 hover:bg-white flex items-center justify-center text-gray-700 hover:text-gray-900 transition-all hover:scale-105"
+          >
+            <ShoppingCart className="w-4 h-4" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-[#E86A10] border-2 border-[#EFFDF0] text-white text-[9px] sm:text-[10px] font-bold rounded-full flex items-center justify-center">
+              1
+            </span>
+          </Link>
+
+          {/* User Avatar */}
+          <Link href="/dashboard" className="flex items-center gap-2 group ml-0.5">
+            <img
+              src={avatarUrl}
+              alt="User profile"
+              className="w-9 h-9 lg:w-10 lg:h-10 rounded-full object-cover border-2 border-white shadow-xs group-hover:ring-2 group-hover:ring-[#1a3d1a]/20 transition-all"
+            />
+            {user && (
+              <div className="hidden xl:block text-left">
+                <div className="text-xs font-bold text-[#1a3d1a] leading-tight truncate max-w-[90px]">
+                  {user.fullName.split(' ')[0]}
+                </div>
+                <div className="text-[10px] text-emerald-800 font-semibold">{user.role}</div>
+              </div>
+            )}
+          </Link>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-1.5 rounded-lg text-gray-700 hover:bg-white/60 ml-1"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE MENU DRAWER */}
+      {mobileMenuOpen && (
+        <div className="md:hidden w-[92%] mx-auto mt-2 bg-[#EFFDF0]/98 backdrop-blur-lg border border-emerald-200 rounded-2xl p-4 space-y-3 shadow-xl animate-fade-in">
+          {navLinks.map((item) => (
             <Link
-              href="/login"
+              key={item.href}
+              href={item.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="text-xs font-semibold text-emerald-600 hover:underline"
+              className="block text-sm font-semibold text-gray-800 hover:text-[#1a3d1a]"
             >
-              Switch Account →
+              {item.label}
             </Link>
-          </div>
+          ))}
+          <Link
+            href="/emergency"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-1.5 text-sm font-bold text-red-600 pt-1"
+          >
+            <ShieldAlert className="w-4 h-4" />
+            <span>1-Tap Emergency SOS</span>
+          </Link>
         </div>
       )}
     </header>
