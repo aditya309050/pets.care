@@ -1,0 +1,25 @@
+{
+  "name": "pets-care-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "One app for everything your pet needs — Web, Mobile, and API",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "db:generate": "pnpm --filter @pets-care/api db:generate",
+    "db:push": "pnpm --filter @pets-care/api db:push",
+    "db:seed": "pnpm --filter @pets-care/api db:seed"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

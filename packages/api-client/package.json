@@ -1,0 +1,24 @@
+{
+  "name": "@pets-care/api-client",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --declaration --emitDeclarationOnly",
+    "lint": "echo 'No lint specified for api-client'"
+  },
+  "dependencies": {
+    "@pets-care/types": "workspace:*",
+    "@pets-care/validation": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

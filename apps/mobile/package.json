@@ -1,0 +1,27 @@
+{
+  "name": "@pets-care/mobile",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "echo 'No lint specified for mobile'"
+  },
+  "dependencies": {
+    "@pets-care/api-client": "workspace:*",
+    "@pets-care/types": "workspace:*",
+    "@pets-care/validation": "workspace:*",
+    "expo": "~51.0.28",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-native": "0.74.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "typescript": "^5.5.4"
+  },
+  "private": true
+}
